@@ -1,0 +1,13 @@
+identifier: our_board/nrf5340/cpunet
+name: NRF7002-DK-NRF5340-network-MCU
+type: mcu
+arch: arm
+toolchain:
+  - gnuarmemb
+  - zephyr
+ram: 64
+flash: 256
+supported:
+  - gpio
+  - watchdog
+vendor: nordic
