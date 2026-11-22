@@ -1,6 +1,7 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/logging/log.h>
+#include "inc/our_driver.h"
 
 #define DT_DRV_COMPAT our_driver
 
@@ -13,6 +14,7 @@ struct our_driver_config {
 
 struct our_driver_data {
     bool led_state;
+    int counter;
 };
 
 static int our_driver_channel_get(const struct device *dev, enum sensor_channel chan, struct sensor_value *val)
@@ -62,6 +64,14 @@ static int our_driver_init(const struct device *dev)
     return 0;
 }
 
+void our_driver_set_counter(const struct device *dev, int value)
+{
+    struct our_driver_data *data = dev->data;
+
+    data->counter = value;
+
+    LOG_INF("Counter changed to %d", value);
+}
 
 #define OUR_DRIVER_DEFINE(inst) \
     static const struct our_driver_config our_driver_config_##inst = { \

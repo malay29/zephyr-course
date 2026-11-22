@@ -2,6 +2,7 @@
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
+#include "../drivers/our_driver/inc/our_driver.h"
 
 #define SLEEP_TIME_MS 1000
 
@@ -24,12 +25,16 @@ LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
 //     }
 // }
 
+
+
 int main(void)
 {
     //test();
 
     const struct device *driver = DEVICE_DT_GET(DT_NODELABEL(our_driver0));
     struct sensor_value val;
+
+    our_driver_set_counter(driver, 45);
 
     bool led_state = true;
 
