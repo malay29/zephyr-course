@@ -4,7 +4,7 @@
 #include <zephyr/logging/log.h>
 #include "../drivers/our_driver/inc/our_driver.h"
 
-#define SLEEP_TIME_MS 1000
+#define SLEEP_TIME_MS 5000
 
 /* The devicetree node identifier for the "led0" alias. */
 #define LED_NODE DT_ALIAS(led0)
@@ -36,6 +36,7 @@ int main(void)
 
     our_driver_set_counter(driver, 45);
 
+
     bool led_state = true;
 
     // if (!gpio_is_ready_dt(&led)) return 0;
@@ -51,12 +52,14 @@ int main(void)
     // }
 
     while(1) {
-        auto ret = sensor_sample_fetch(driver);
-        LOG_INF("sensor_sample_fetch returned %d", ret);
-        k_msleep(CONFIG_APP_HEARTBEAT_PERIOD_MS);
-        auto ret1 = sensor_channel_get(driver, SENSOR_CHAN_AMBIENT_TEMP, &val);
-        LOG_INF("sensor_channel_get returned %d", ret1);
-        k_msleep(CONFIG_APP_HEARTBEAT_PERIOD_MS);
+      //  auto ret = sensor_sample_fetch(driver);
+      //  LOG_INF("sensor_sample_fetch returned %d", ret);
+        //k_msleep(CONFIG_APP_HEARTBEAT_PERIOD_MS);
+      //  k_msleep(SLEEP_TIME_MS);
+     //   auto ret1 = sensor_channel_get(driver, SENSOR_CHAN_AMBIENT_TEMP, &val);
+      //  LOG_INF("sensor_channel_get returned %d", ret1);
+        //k_msleep(CONFIG_APP_HEARTBEAT_PERIOD_MS);
+        k_msleep(SLEEP_TIME_MS);
     }
     return 0;
 }
