@@ -1,6 +1,20 @@
+
+/*
 /{
 	aliases{
 		app-led = &led0;
 	};
 
+};
+*/
+
+/*Driver Development */
+
+/{
+	our_driver0: our_driver {
+		compatible = "our,driver";
+		status = "okay";
+
+		callibration = <50>;
+	};
 };

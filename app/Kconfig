@@ -63,6 +63,7 @@ endmenu
 endif
 endif
 source "Kconfig.zephyr"
+rsource "drivers/our_driver/Kconfig"
 
 # choice 
 #     prompt "LED Subsystem"
