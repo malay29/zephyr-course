@@ -1,6 +1,6 @@
 #include <zephyr/shell/shell.h>
 #include <zephyr/drivers/sensor.h>
-
+#include "inc/our_driver.h"
 
 // create handler
 // static int cmd_channel_get_handler(const struct shell *sh, int argc, char** argv)
@@ -57,11 +57,34 @@ static int cmd_info_handler(const struct shell *sh, int argc, char** argv)
     return 0;
 }
 
+static int cmd_set_counter_handler(const struct shell *sh, int argc, char** argv)
+{   
+    const struct device *dev = DEVICE_DT_GET(DT_NODELABEL(our_driver0));
+    if (!dev) {
+        shell_error(sh, "Device not found ");
+        return -ENODEV;
+    }
+
+    int counter_value = atoi(argv[1]);
+   
+    shell_info(sh, "Counter value set to %d", counter_value);
+    if(counter_value < 0) {
+        shell_error(sh, "Counter value cannot be negative");
+        return -EINVAL;
+    }
+
+
+    our_driver_set_counter(dev, counter_value);
+    return 0;
+
+}
+
 
 SHELL_STATIC_SUBCMD_SET_CREATE(sensor_subcmd,
     SHELL_CMD_ARG(fetch, NULL, "Call sensor_sample_fetch", cmd_fetch_handler, 2, 0),
     SHELL_CMD_ARG(read, NULL, "call sensor_channel_get", cmd_channel_get_handler, 2, 0),
     SHELL_CMD_ARG(info, NULL, "print device name and ready state", cmd_info_handler, 2, 0),
+    SHELL_CMD_ARG(set, NULL, "Set the counter value", cmd_set_counter_handler, 2, 0),
     SHELL_SUBCMD_SET_END
 );
 
